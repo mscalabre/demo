@@ -25,7 +25,7 @@ public class CreateConfig {
         String dir = configLoc + "/business";
 
         Configuration config = Configuration.builder()
-                        .baseUri("http://docs.update4j.org/demo/business")
+                        .baseUri("http://localhost/demo/business")
                         .basePath("${user.dir}/business")
                         .file(FileMetadata.readFrom(dir + "/business-1.0.0.jar").path("business-1.0.0.jar").classpath())
                         .file(FileMetadata.readFrom(dir + "/controlsfx-9.0.0.jar")
@@ -56,11 +56,11 @@ public class CreateConfig {
                         .baseUri("${maven.central.javafx}")
                         .basePath("${user.dir}/bootstrap")
                         .file(FileMetadata.readFrom(dir + "/../business/config.xml") // fall back if no internet
-                                        .uri("http://docs.update4j.org/demo/business/config.xml")
+                                        .uri("http://localhost/demo/business/config.xml")
                                         .path("../business/config.xml"))
                         .file(FileMetadata.readFrom(dir + "/bootstrap-1.0.0.jar")
                                         .classpath()
-                                        .uri("http://docs.update4j.org/demo/bootstrap/bootstrap-1.0.0.jar"))
+                                        .uri("http://localhost/demo/bootstrap/bootstrap-1.0.0.jar"))
                         .files(FileMetadata.streamDirectory(cacheLoc)
                                         .filter(fm -> fm.getSource().getFileName().toString().startsWith("javafx"))
                                         .peek(f -> f.classpath())

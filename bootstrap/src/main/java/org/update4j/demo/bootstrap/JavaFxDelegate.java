@@ -56,7 +56,7 @@ public class JavaFxDelegate extends Application implements Delegate {
 		primaryStage.setMinWidth(650);
 		primaryStage.setMinHeight(500);
 
-		URL configUrl = new URL("http://docs.update4j.org/demo/business/config.xml");
+		URL configUrl = new URL("http://localhost/demo/business/config.xml");
 		Configuration config = null;
 		try (Reader in = new InputStreamReader(configUrl.openStream(), StandardCharsets.UTF_8)) {
 			config = Configuration.read(in);
