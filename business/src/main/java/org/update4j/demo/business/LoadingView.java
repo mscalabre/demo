@@ -1,6 +1,6 @@
 package org.update4j.demo.business;
 
-import org.update4j.demo.bootstrap.FXMLView;
+//import org.update4j.demo.bootstrap.FXMLView;
 
 import javafx.animation.FadeTransition;
 import javafx.beans.property.ObjectProperty;
@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-public class LoadingView extends FXMLView {
+public class LoadingView extends BusinessFXMLView {
 
 	private FadeTransition fade;
 
@@ -22,6 +22,7 @@ public class LoadingView extends FXMLView {
 	private ImageView imageView;
 
 	public LoadingView(String text, Image image) {
+		super();
 		if (text != null)
 			label.setText(text);
 
@@ -40,10 +41,6 @@ public class LoadingView extends FXMLView {
 
 	public LoadingView(String text) {
 		this(text, null);
-	}
-
-	public LoadingView() {
-		this(null);
 	}
 
 	public void show() {

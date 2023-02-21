@@ -2,9 +2,9 @@ package org.update4j.demo.business;
 
 import org.controlsfx.control.BreadCrumbBar;
 import org.controlsfx.control.ToggleSwitch;
-import org.update4j.demo.bootstrap.FXMLView;
-import org.update4j.demo.bootstrap.JavaFxDelegate;
-import org.update4j.demo.bootstrap.TextSeparator;
+//import org.update4j.demo.bootstrap.FXMLView;
+//import org.update4j.demo.bootstrap.JavaFxDelegate;
+//import org.update4j.demo.bootstrap.TextSeparator;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSpinner;
@@ -18,7 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import jfxtras.scene.control.gauge.linear.SimpleMetroArcGauge;
 
-public class LibraryView extends FXMLView {
+public class LibraryView extends BusinessFXMLView {
 
 	@FXML
 	private ImageView image;
@@ -48,18 +48,19 @@ public class LibraryView extends FXMLView {
 	private SimpleMetroArcGauge gauge;
 
 	public LibraryView() {
+		super();
 		getStylesheets().add(
 						JFXButton.class.getResource("/com/jfoenix/assets/css/jfoenix-design.css").toExternalForm());
 
-		image.setImage(JavaFxDelegate.inverted);
+//		image.setImage(JavaFxDelegate.inverted);
 
-		TextSeparator jfoenixSeparator = new TextSeparator("JFoeniX");
+		BusinessTextSeparator jfoenixSeparator = new BusinessTextSeparator("JFoeniX");
 		jfoenixContainer.add(jfoenixSeparator, 0, 0, GridPane.REMAINING, 1);
 
-		TextSeparator controlsfxSeparator = new TextSeparator("ControlsFX");
+		BusinessTextSeparator controlsfxSeparator = new BusinessTextSeparator("ControlsFX");
 		controlsfxContainer.add(controlsfxSeparator, 0, 0, GridPane.REMAINING, 1);
 
-		TextSeparator jfxtrasSeparator = new TextSeparator("JFXtras");
+		BusinessTextSeparator jfxtrasSeparator = new BusinessTextSeparator("JFXtras");
 		jfxtrasContainer.add(jfxtrasSeparator, 0, 0, GridPane.REMAINING, 1);
 
 		TreeItem<String> crumb1 = new TreeItem<>("Item 1");

@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.update4j.LaunchContext;
 import org.update4j.SingleInstanceManager;
-import org.update4j.demo.bootstrap.StartupView;
 import org.update4j.inject.InjectTarget;
 import org.update4j.inject.PostInject;
 import org.update4j.service.Launcher;
@@ -55,10 +54,10 @@ public class JavaFxLauncher implements Launcher {
 	/*
 	 * I use @PostInject instead of @InjectTarget to demonstrate how to use it
 	 */
-	private StartupView startup;
+	private StackPane startup;
 
 	@PostInject
-	private void getStartupView(StartupView view) {
+	private void getStartupView(StackPane view) {
 		startup = view;
 	}
 

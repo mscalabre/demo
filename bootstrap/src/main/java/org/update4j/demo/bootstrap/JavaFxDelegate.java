@@ -48,7 +48,12 @@ public class JavaFxDelegate extends Application implements Delegate {
 						.map(s -> getClass().getResource(s).toExternalForm())
 						.map(Image::new)
 						.collect(Collectors.toList());
-		inverted = new Image("/icons/update4j-icon-invert.png");
+		String extForm = getClass()
+				.getResource("/icons/update4j-icon-invert.png")
+				.toExternalForm();
+		inverted = new Image(
+				extForm
+		);
 	}
 
 	@Override

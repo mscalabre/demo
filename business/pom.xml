@@ -51,7 +51,7 @@
 						</goals>
 						<configuration>
 							<outputDirectory>${config.location}/business</outputDirectory>
-							<includeGroupIds>com.jfoenix,org.jfxtras,org.controlsfx</includeGroupIds>
+							<includeGroupIds>com.jfoenix,org.jfxtras,org.controlsfx,org.update4j</includeGroupIds>
 						</configuration>
 					</execution>
 				</executions>

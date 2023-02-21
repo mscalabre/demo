@@ -7,11 +7,13 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import org.update4j.AddPackage;
 import org.update4j.Configuration;
 import org.update4j.FileMetadata;
 import org.update4j.OS;
@@ -22,43 +24,45 @@ public class CreateConfig {
 
 
         String configLoc = System.getProperty("config.location");
-        String dir = configLoc + "/business";
+
+        String busniessDir = configLoc + "/business";
+        String bootstrapDir = configLoc + "/bootstrap";
+
+
+        String cacheLoc = System.getProperty("maven.dir") + "/fxcache";
+
+        cacheJavafx();
 
         Configuration config = Configuration.builder()
                         .baseUri("http://localhost/demo/business")
                         .basePath("${user.dir}/business")
-                        .file(FileMetadata.readFrom(dir + "/business-1.0.0.jar").path("business-1.0.0.jar").classpath())
-                        .file(FileMetadata.readFrom(dir + "/controlsfx-9.0.0.jar")
-                                        .uri(mavenUrl("org.controlsfx", "controlsfx", "9.0.0"))
-                                        .classpath())
-                        .file(FileMetadata.readFrom(dir + "/jfoenix-9.0.8.jar")
-                                        .uri(mavenUrl("com.jfoenix", "jfoenix", "9.0.8"))
-                                        .classpath())
-                        .file(FileMetadata.readFrom(dir + "/jfxtras-common-10.0-r1.jar")
-                                        .uri(mavenUrl("org.jfxtras", "jfxtras-common", "10.0-r1"))
-                                        .classpath())
-                        .file(FileMetadata.readFrom(dir + "/jfxtras-gauge-linear-10.0-r1.jar")
-                                        .uri(mavenUrl("org.jfxtras", "jfxtras-gauge-linear", "10.0-r1"))
-                                        .classpath())
+                        .file(FileMetadata.readFrom(busniessDir + "/business-1.0.0.jar")
+                                .path("business-1.0.0.jar")
+                                .modulepath()
+                        )
+                        .file(FileMetadata.readFrom(busniessDir + "/jfoenix-9.0.8.jar")
+                                        .path("jfoenix-9.0.8.jar")
+                                        .modulepath())
+                        .file(FileMetadata.readFrom(busniessDir + "/jfxtras-common-10.0-r1.jar")
+                                        .path("jfxtras-common-10.0-r1.jar")
+                                        .modulepath())
+                        .file(FileMetadata.readFrom(busniessDir + "/jfxtras-gauge-linear-10.0-r1.jar")
+                                        .path("jfxtras-gauge-linear-10.0-r1.jar")
+                                        .modulepath())
                         .property("maven.central", MAVEN_BASE)
                         .build();
 
-        try (Writer out = Files.newBufferedWriter(Paths.get(dir + "/config.xml"))) {
+        try (Writer out = Files.newBufferedWriter(Paths.get(busniessDir + "/config.xml"))) {
             config.write(out);
         }
-
-        String cacheLoc = System.getProperty("maven.dir") + "/fxcache";
-        dir = configLoc + "/bootstrap";
-
-        cacheJavafx();
 
         config = Configuration.builder()
                         .baseUri("${maven.central.javafx}")
                         .basePath("${user.dir}/bootstrap")
-                        .file(FileMetadata.readFrom(dir + "/../business/config.xml") // fall back if no internet
+                        .file(FileMetadata.readFrom(bootstrapDir + "/../business/config.xml") // fall back if no internet
                                         .uri("http://localhost/demo/business/config.xml")
                                         .path("../business/config.xml"))
-                        .file(FileMetadata.readFrom(dir + "/bootstrap-1.0.0.jar")
+                        .file(FileMetadata.readFrom(bootstrapDir + "/bootstrap-1.0.0.jar")
                                         .classpath()
                                         .uri("http://localhost/demo/bootstrap/bootstrap-1.0.0.jar"))
                         .files(FileMetadata.streamDirectory(cacheLoc)
@@ -66,9 +70,17 @@ public class CreateConfig {
                                         .peek(f -> f.classpath())
                                         .peek(f -> f.ignoreBootConflict()) // if run with JDK 9/10
                                         .peek(f -> f.osFromFilename())
-                                        .peek(f -> f.uri(extractJavafxURL(f.getSource(), f.getOs()))))
-
-                        .property("default.launcher.main.class", "org.update4j.Bootstrap")
+                                        .peek(f -> f.uri(extractJavafxURL(f.getSource(), f.getOs())))
+                        )
+                        .file(FileMetadata.readFrom(busniessDir + "/controlsfx-9.0.0.jar")
+                                .classpath()
+                                .uri("http://localhost/demo/business/controlsfx-9.0.0.jar")
+                        )
+                        .file(FileMetadata.readFrom(busniessDir + "/update4j-1.5.9.jar")
+                                .classpath()
+                                .uri("http://localhost/demo/business/update4j-1.5.9.jar")
+                        )
+                        .property("default.launcher.main.class", "org.update4j.demo.bootstrap.Starter")
                         .property("maven.central", MAVEN_BASE)
                         .property("maven.central.javafx", "${maven.central}/org/openjfx/")
                         .build();
