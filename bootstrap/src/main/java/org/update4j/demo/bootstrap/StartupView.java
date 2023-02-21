@@ -194,7 +194,7 @@ public class StartupView extends FXMLView implements UpdateHandler, Injectable {
 
 					@Override
 					protected Void call() throws Exception {
-					    Path zip = Paths.get("business-update.zip");
+					    Path zip = Paths.get(System.getProperty("user.home")+"/business-update.zip");
 						if(config.update(UpdateOptions.archive(zip).updateHandler(StartupView.this)).getException() == null) {
 						    Archive.read(zip).install();
 						}

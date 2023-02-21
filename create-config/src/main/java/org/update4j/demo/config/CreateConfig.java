@@ -35,7 +35,7 @@ public class CreateConfig {
 
         Configuration config = Configuration.builder()
                         .baseUri("http://localhost/demo/business")
-                        .basePath("${user.dir}/business")
+                        .basePath("${user.home}/business")
                         .file(FileMetadata.readFrom(busniessDir + "/business-1.0.0.jar")
                                 .path("business-1.0.0.jar")
                                 .modulepath()
@@ -56,9 +56,10 @@ public class CreateConfig {
             config.write(out);
         }
 
+
         config = Configuration.builder()
                         .baseUri("${maven.central.javafx}")
-                        .basePath("${user.dir}/bootstrap")
+                        .basePath("${user.home}/bootstrap")
                         .file(FileMetadata.readFrom(bootstrapDir + "/../business/config.xml") // fall back if no internet
                                         .uri("http://localhost/demo/business/config.xml")
                                         .path("../business/config.xml"))
@@ -80,7 +81,7 @@ public class CreateConfig {
 //                                .classpath()
 //                                .uri("http://localhost/demo/business/update4j-1.5.9.jar")
 //                        )
-                        .property("default.launcher.main.class", "org.update4j.demo.bootstrap.Starter")
+                        .property("default.launcher.main.class", "org.update4j.demo.bootstrap.DownloadOrLaunchBootstrap")
                         .property("maven.central", MAVEN_BASE)
                         .property("maven.central.javafx", "${maven.central}/org/openjfx/")
                         .build();
