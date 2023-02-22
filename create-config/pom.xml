@@ -11,6 +11,14 @@
 	<artifactId>create-config</artifactId>
 	<packaging>jar</packaging>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.update4j</groupId>
+			<artifactId>starter</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>

@@ -112,12 +112,13 @@ public class JavaFxLauncher implements Launcher {
 						.add(JFXButton.class.getResource("/com/jfoenix/assets/css/jfoenix-design.css")
 										.toExternalForm());
 
-		// We call these methods since it take about 1.5 seconds
-		// to render and locks UI thread.
-		libs.applyCss();
-		libs.layout();
 
 		Platform.runLater(() -> {
+			// We call these methods since it take about 1.5 seconds
+			// to render and locks UI thread.
+			libs.applyCss();
+			libs.layout();
+
 			stage.setTitle("Update4j Demo Business");
 			stage.setMinWidth(650);
 			stage.setMinHeight(500);

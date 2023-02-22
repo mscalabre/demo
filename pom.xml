@@ -11,7 +11,8 @@
 		<module>bootstrap</module>
 		<module>business</module>
 		<module>create-config</module>
-	</modules>
+        <module>starter</module>
+    </modules>
 
 	<properties>
 		<root>${maven.multiModuleProjectDirectory}</root>
